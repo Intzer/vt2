@@ -36,102 +36,103 @@
     </c:otherwise>
   </c:choose>
 
-  <div class="row">
+  <div class="row mt-3">
     <div class="container">
       <div class="container">
-        <form class="float-right">
-          <input name="query" value="${param.query}">
+        <form class="form-inline float-right">
+          <input class="form-control" name="query" value="${param.query}" placeholder="...">
           <input type="hidden" name="command" value="Product_List">
-          <button class="btn btn-light"><fmt:message key="button_search" /></button>
+          <button class="btn btn-danger ml-2"><fmt:message key="button_search" /></button>
         </form>
       </div>
     </div>
   </div>
   <div class="panel"></div>
   <div class="row">
-    <div class="col-2"></div>
-    <div class="col-8">
-      <table class="table table-hover table-bordered text-center">
-        <thead>
-        <tr class="bg-light">
-          <td><fmt:message key="phone_image" /></td>
-          <td>
-            <fmt:message key="item_brand" />
-            <tags:sortLink sort="brand" order="asc"/><tags:sortLink sort="brand" order="desc"/>
-          </td>
-          <td>
-            <fmt:message key="item_model" />
-            <tags:sortLink sort="model" order="asc"/><tags:sortLink sort="model" order="desc"/>
-          </td>
-          <td><fmt:message key="item_Color" /></td>
-          <td>
-            <fmt:message key="item_Display_Size" />
-            <tags:sortLink sort="displaySizeInches" order="asc"/>
-            <tags:sortLink sort="displaySizeInches" order="desc"/>
-          </td>
-          <td>
-            <fmt:message key="item.price" />
-            <tags:sortLink sort="price" order="asc"/>
-            <tags:sortLink sort="price" order="desc"/>
-          </td>
-          <td><fmt:message key="table_action" /></td>
-        </tr>
-        </thead>
-        <c:forEach var="phone" items="${phones}">
-          <tr>
-            <td class="align-middle">
-              <img class="rounded" src="https://raw.githubusercontent.com/andrewosipenko/phoneshop-ext-images/master/${phone.imageUrl}">
+    <div class="col-12">
+      <div class="table-responsive mb-3">
+        <table class="table table-hover table-bordered text-center">
+          <thead>
+          <tr class="bg-light">
+            <td><fmt:message key="phone_image" /></td>
+            <td>
+              <fmt:message key="item_brand" />
+              <tags:sortLink sort="brand" order="asc"/><tags:sortLink sort="brand" order="desc"/>
             </td>
-            <td class="align-middle">
-              <form id="productFormBrand" action="/" method="GET">
-                <input type="hidden" name="command" value="product_details">
-                <input type="hidden" name="phone_id" value="${phone.id}">
-                <button type="submit">
-                    ${phone.brand}
-                </button>
-              </form>
+            <td>
+              <fmt:message key="item_model" />
+              <tags:sortLink sort="model" order="asc"/><tags:sortLink sort="model" order="desc"/>
             </td>
-            <td class="align-middle">
-              <form id="productFormModel" action="/" method="GET">
-                <input type="hidden" name="command" value="product_details">
-                <input type="hidden" name="phone_id" value="${phone.id}">
-                <button type="submit">
-                    ${phone.model}
-                </button>
-              </form>
+            <td><fmt:message key="item_Color" /></td>
+            <td>
+              <fmt:message key="item_Display_Size" />
+              <tags:sortLink sort="displaySizeInches" order="asc"/>
+              <tags:sortLink sort="displaySizeInches" order="desc"/>
             </td>
-            <td class="align-middle">
-              <ul>
-                <c:forEach var="color" items="${phone.colors}">
-                  <li>${color.code}</li>
-                </c:forEach>
-              </ul>
+            <td>
+              <fmt:message key="item.price" />
+              <tags:sortLink sort="price" order="asc"/>
+              <tags:sortLink sort="price" order="desc"/>
             </td>
-            <td class="align-middle">${phone.displaySizeInches}"</td>
-            <td class="align-middle">$ ${phone.price}</td>
-            <td class="align-middle">
-                      <c:choose>
-                        <c:when test="${not empty sessionScope.login}">
-                            <form action="/" method="post">
-                              <input type="hidden" name="command" value="cart_add">
-                        </c:when>
-                        <c:otherwise>
-                            <form action="/" method="get">
-                              <input type="hidden" name="command" value="authorisation">
-                        </c:otherwise>
-                      </c:choose>
-                <input type="hidden" name="id" value="${phone.id}">
-                <input type="hidden" name="page_type" value="productList">
-                <input type="number" name="quantity" id="quantity${phone.id}" min="1" required>
-                <button class="btn btn-lg btn-outline-light text-dark border-dark float-right" type="submit" style="font-size: 14px"><fmt:message key="button_add" /></button>
-              </form>
-                              <c:if test="${not empty inputErrors.get(phone.id)}">
-                                  <div class="error" style="color: red">${inputErrors[phone.id]}</div>
-                              </c:if>
-            </td>
+            <td><fmt:message key="table_action" /></td>
           </tr>
-        </c:forEach>
-      </table>
+          </thead>
+          <c:forEach var="phone" items="${phones}">
+            <tr>
+              <td class="align-middle">
+                <img class="rounded" src="https://raw.githubusercontent.com/andrewosipenko/phoneshop-ext-images/master/${phone.imageUrl}">
+              </td>
+              <td class="align-middle">
+                <form id="productFormBrand" action="/" method="GET">
+                  <input type="hidden" name="command" value="product_details">
+                  <input type="hidden" name="phone_id" value="${phone.id}">
+                  <button type="submit">
+                      ${phone.brand}
+                  </button>
+                </form>
+              </td>
+              <td class="align-middle">
+                <form id="productFormModel" action="/" method="GET">
+                  <input type="hidden" name="command" value="product_details">
+                  <input type="hidden" name="phone_id" value="${phone.id}">
+                  <button type="submit">
+                      ${phone.model}
+                  </button>
+                </form>
+              </td>
+              <td class="align-middle">
+                <ul>
+                  <c:forEach var="color" items="${phone.colors}">
+                    <li>${color.code}</li>
+                  </c:forEach>
+                </ul>
+              </td>
+              <td class="align-middle">${phone.displaySizeInches}"</td>
+              <td class="align-middle">$ ${phone.price}</td>
+              <td class="align-middle">
+                <c:choose>
+                <c:when test="${not empty sessionScope.login}">
+                <form action="/" method="post">
+                  <input type="hidden" name="command" value="cart_add">
+                  </c:when>
+                  <c:otherwise>
+                  <form action="/" method="get">
+                    <input type="hidden" name="command" value="authorisation">
+                    </c:otherwise>
+                    </c:choose>
+                    <input type="hidden" name="id" value="${phone.id}">
+                    <input type="hidden" name="page_type" value="productList">
+                    <input type="number" name="quantity" id="quantity${phone.id}" min="1" required>
+                    <button class="btn btn-lg btn-outline-light text-dark border-dark float-right" type="submit" style="font-size: 14px"><fmt:message key="button_add" /></button>
+                  </form>
+                  <c:if test="${not empty inputErrors.get(phone.id)}">
+                  <div class="error" style="color: red">${inputErrors[phone.id]}</div>
+                  </c:if>
+              </td>
+            </tr>
+          </c:forEach>
+        </table>
+      </div>
       <tags:pages page="${empty param.page or param.page lt 1 ? 1 : param.page}" lastPage="${numberOfPages}"/>
     </div>
   </div>

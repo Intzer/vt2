@@ -24,7 +24,7 @@
             <div class="col-6">
                 <h1>
                     <a class="text-light" href="<c:url value="/?command=Product_List"/>">
-                        PhoneStore
+                        Phone Store
                     </a>
                 </h1>
                 <h3>
@@ -97,8 +97,9 @@
 
 </header>
 <main>
-    <p></p>
-    <jsp:doBody/>
+    <div class="container">
+        <jsp:doBody/>
+    </div>
 </main>
 </body>
 </html>

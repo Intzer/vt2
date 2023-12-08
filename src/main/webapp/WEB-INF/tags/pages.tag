@@ -3,8 +3,8 @@
 <%@ attribute name="page" required="true" %>
 <%@ attribute name="lastPage" required="true" %>
 
-<div class="container">
-    <form class="float-right">
+<div class="container text-center">
+    <form>
         <div class="btn-group">
             <button class="btn btn-outline-secondary" type="submit" name="page" ${page eq 1 ? 'disabled="true"' : ''}
                     value="1"><<</button>

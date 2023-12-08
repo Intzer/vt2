@@ -12,9 +12,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * @author nekit
- * @version 1.0
  * Front Controller receives all requests and redirects them for execution to the necessary commands
+ * @author roman
+ * @version 1.0
  */
 public class FrontController extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -84,7 +84,14 @@ public class FrontController extends HttpServlet {
                 page = JspPageName.ERROR_PAGE;
             }
         } else {
-            page = JspPageName.ERROR_PAGE;
+            commandName = "Product_List";
+            try {
+                ICommand command = CommandHelper.getInstance().getCommand(commandName);
+                page = command.execute(request);
+            } catch (CommandException e) {
+                request.setAttribute("message", e.getMessage());
+                page = JspPageName.ERROR_PAGE;
+            }
         }
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(page);
